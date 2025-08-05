@@ -3,6 +3,11 @@ Paints chromosomes of lepidopteran genomes with BUSCOs.
 
 This repo is forked from `charlottewright/lep_busco_painter` to enable use of the scripts and data in sanger-tol pipelines, this also allows us to automate container building based on scripts that derive from this original work.
 
+Additions are:
+- Moved scripts to the `src` folder
+- Script formats updated and versions added.
+- Added Python linting with Ruff as GitHub Action
+
 ### Installation
 
 ```
