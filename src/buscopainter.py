@@ -49,7 +49,7 @@ def parse_table(table_file):
                         start, stop = int(cols[3]), int(cols[4])
 
                     table_dict[buscoID] = [chr, start, stop]
-                    if not chr in chr_list:
+                    if chr not in chr_list:
                         chr_list.append(chr)
     return table_dict, sorted(chr_list)
 
@@ -77,7 +77,7 @@ def parse_query_table(table_file):
                         table_dict_dup[buscoID] = [chr, start, stop]
                     else:
                         table_dict[buscoID] = [chr, start, stop]
-                    if not chr in chr_list:
+                    if chr not in chr_list:
                         chr_list.append(chr)
     return table_dict, table_dict_dup, sorted(chr_list)
 
