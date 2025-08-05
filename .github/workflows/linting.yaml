@@ -21,7 +21,7 @@ jobs:
           needs: lint
 
       - name: Lint
-        run: lintr::lint_package("./src/)
+        run: lintr::lint(filename="./src/plot_buscopainter.R")
         shell: Rscript {0}
         env:
           LINTR_ERROR_ON_LINT: true
