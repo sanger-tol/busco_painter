@@ -20,11 +20,32 @@ def parse_args():
 
     parser = argparse.ArgumentParser(description=Description)
     parser.add_argument(
-        "-r", "--reference_table", type=str, help="full_table.tsv file for reference species", required=True
+        "-r",
+        "--reference_table",
+        type=str,
+        help="full_table.tsv file for reference species",
+        required=True
     )
-    parser.add_argument("-q", "--query_table", type=str, help="full_table.tsv for query species", required=True)
-    parser.add_argument("-p", "--prefix", type=str, help="prefix for output file names", default="buscopainter")
-    parser.add_argument("-v", "--version", action="version", version="1.1")
+    parser.add_argument(
+        "-q",
+        "--query_table",
+        type=str,
+        help="full_table.tsv for query species",
+        required=True
+    )
+    parser.add_argument(
+        "-p",
+        "--prefix",
+        type=str,
+        help="prefix for output file names",
+        default="buscopainter"
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version="1.1"
+    )
 
     return parser.parse_args()
 
@@ -82,7 +103,13 @@ def parse_query_table(table_file):
     return table_dict, table_dict_dup, sorted(chr_list)
 
 
-def print_summary_table(reference_table_dict, reference_chr_list, query_table_dict, query_chr_list, summary_table_file):
+def print_summary_table(
+    reference_table_dict,
+    reference_chr_list,
+    query_table_dict,
+    query_chr_list,
+    summary_table_file
+):
     with open(summary_table_file, "w") as summary_table:
         summary_table.write(
             "%s\t%s\t%s\t%s\t%s\t%s"
@@ -134,10 +161,17 @@ def print_summary_table(reference_table_dict, reference_chr_list, query_table_di
     return top_chr_dict
 
 
-def print_location_table(reference_table_dict, query_table_dict, location_table_file, top_chr_dict):
+def print_location_table(
+    reference_table_dict,
+    query_table_dict,
+    location_table_file,
+    top_chr_dict
+):
     with open(location_table_file, "w") as location_table:
         location_table.write(
-            "%s\t%s\t%s\t%s\t%s" % ("buscoID", "query_chr", "position", "assigned_chr", "status") + "\n"
+            "%s\t%s\t%s\t%s\t%s"
+            % ("buscoID", "query_chr", "position", "assigned_chr", "status")
+            + "\n"
         )
         for buscoID, position_list in query_table_dict.items():
             query_chr, query_start, query_stop = position_list
@@ -149,18 +183,32 @@ def print_location_table(reference_table_dict, query_table_dict, location_table_
                 else:
                     status = "self"
                 location_table.write(
-                    "%s\t%s\t%s\t%s\t%s" % (buscoID, query_chr, position, reference_chr, status) + "\n"
+                    "%s\t%s\t%s\t%s\t%s"
+                    % (buscoID, query_chr, position, reference_chr, status)
+                    + "\n"
                 )
             except KeyError:
                 pass
 
 
 def print_dups_location_table(
-    reference_table_dict, query_table_dict, query_table_dict2, location_table_file, top_chr_dict
+    reference_table_dict,
+    query_table_dict,
+    query_table_dict2,
+    location_table_file,
+    top_chr_dict
 ):
     with open(location_table_file, "w") as location_table:
         location_table.write(
-            "%s\t%s\t%s\t%s\t%s\t%s" % ("buscoID", "query_chr", "query_start", "query_end", "assigned_chr", "status")
+            "%s\t%s\t%s\t%s\t%s\t%s"
+            % (
+                "buscoID",
+                "query_chr",
+                "query_start",
+                "query_end",
+                "assigned_chr",
+                "status"
+            )
             + "\n"
         )
         for buscoID, position_list in query_table_dict.items():
@@ -173,7 +221,15 @@ def print_dups_location_table(
                 else:
                     status = "self"
                 location_table.write(
-                    "%s\t%s\t%s\t%s\t%s\t%s" % (buscoID, query_chr, query_start, query_stop, reference_chr, status)
+                    "%s\t%s\t%s\t%s\t%s\t%s"
+                    % (
+                        buscoID,
+                        query_chr,
+                        query_start,
+                        query_stop,
+                        reference_chr,
+                        status
+                    )
                     + "\n"
                 )
             except KeyError:
@@ -188,7 +244,14 @@ def print_dups_location_table(
                 else:
                     status = "self"
                 location_table.write(
-                    "%s\t%s\t%s\t%s\t%s\t%s" % (buscoID, query_chr, query_start, query_stop, reference_chr, status)
+                    "%s\t%s\t%s\t%s\t%s\t%s"
+                    % (
+                        buscoID,
+                        query_chr,
+                        query_start,
+                        query_stop,
+                        reference_chr,
+                        status)
                     + "\n"
                 )
             except KeyError:
@@ -209,7 +272,11 @@ def main():
 
     # work out top_chr dict using complete buscos as usual
     top_chr_dict = print_summary_table(
-        reference_table_dict, reference_chr_list, query_table_dict, query_chr_list, summary_table_file
+        reference_table_dict,
+        reference_chr_list,
+        query_table_dict,
+        query_chr_list,
+        summary_table_file
     )
 
     print("[+] Written output files successfully:")
@@ -217,15 +284,21 @@ def main():
     print("[+]	" + location_table_file)
 
     # get all duplicated buscos
-    query_table_dup1_dict, query_table_dup2_dict, query_chr_dup_list = parse_query_table(
-        args.query_table
+    query_table_dup1_dict, query_table_dup2_dict, query_chr_dup_list = (
+        parse_query_table( args.query_table)
     )
 
-    print_location_table(reference_table_dict, query_table_dict, location_table_file, top_chr_dict)
+    print_location_table(
+        reference_table_dict, query_table_dict, location_table_file, top_chr_dict
+    )
 
     location_table_file = args.prefix + "_duplicated_location.tsv"
     print_dups_location_table(
-        reference_table_dict, query_table_dup1_dict, query_table_dup2_dict, location_table_file, top_chr_dict
+        reference_table_dict,
+        query_table_dup1_dict,
+        query_table_dup2_dict,
+        location_table_file,
+        top_chr_dict
     )
 
     print("[+]	" + location_table_file)
