@@ -40,7 +40,7 @@ def parse_args():
         help="prefix for output file names",
         default="buscopainter",
     )
-    parser.add_argument("-v", "--version",action="version",version="1.1")
+    parser.add_argument("-v", "--version", action="version", version="1.1")
 
     return parser.parse_args()
 
@@ -285,7 +285,7 @@ def main():
 
     # get all duplicated buscos
     query_table_dup1_dict, query_table_dup2_dict, query_chr_dup_list = (
-        parse_query_table( args.query_table)
+        parse_query_table(args.query_table)
     )
 
     print_location_table(
@@ -298,7 +298,7 @@ def main():
         query_table_dup1_dict,
         query_table_dup2_dict,
         location_table_file,
-        top_chr_dict
+        top_chr_dict,
     )
 
     print("[+]	" + location_table_file)
