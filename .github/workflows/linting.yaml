@@ -1,17 +1,21 @@
 name: Linting
 on:
+  push:
   pull_request:
   release:
 
 jobs:
-  test:
+  Linting:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+  
       - name: ruff-action
         # You may pin to the exact commit or the version.
         # uses: astral-sh/ruff-action@0c50076f12c38c3d0115b7b519b54a91cb9cf0ad
         uses: astral-sh/ruff-action@v3.5.0
         with:
-          src: "/home/runner/work/busco_painter/busco_painter/src/buscopainter.py"
+          src: "./src"
           args: check
                 
