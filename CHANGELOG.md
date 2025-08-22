@@ -15,4 +15,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         - Tabs = 4L
         - object_usage_linter = NULL
         - pipe_continuation_linter = NULL
+        - pipe_consistency_linter = NULL
 - Scripts have been updated to match linting standards where sensible.
