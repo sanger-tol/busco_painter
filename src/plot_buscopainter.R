@@ -92,51 +92,53 @@ set_merian_colour_mapping <- function(location_set) {
     subset_merians
 }
 
-busco_paint_theme <- theme(legend.position = "right",
-        strip.text.x = element_text(
-            margin = margin(0, 0, 0, 0, "cm")
-        ),
-        panel.background = element_rect(
-            fill = "white", colour = "white"
-        ),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.line.x = element_line(
-            color = "black", size = 0.5
-        ),
-        axis.text.x = element_text(size = 15),
-        axis.title.x = element_text(size = 15),
-        strip.text.y = element_text(angle = 0),
-        strip.background = element_blank(),
-        plot.title = element_text(
-            hjust = 0.5, face = "italic", size = 20
-        ),
-        plot.subtitle = element_text(
-            hjust = 0.5, size = 20
-        )
+busco_paint_theme <- theme(
+    legend.position = "right",
+    strip.text.x = element_text(
+        margin = margin(0, 0, 0, 0, "cm")
+    ),
+    panel.background = element_rect(
+        fill = "white", colour = "white"
+    ),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line.x = element_line(
+        color = "black", size = 0.5
+    ),
+    axis.text.x = element_text(size = 15),
+    axis.title.x = element_text(size = 15),
+    strip.text.y = element_text(angle = 0),
+    strip.background = element_blank(),
+    plot.title = element_text(
+        hjust = 0.5, face = "italic", size = 20
+    ),
+    plot.subtitle = element_text(
+        hjust = 0.5, size = 20
     )
+)
 
-busco_paint_no_facet_labels_theme <- theme(legend.position = "right",
-        strip.text.x = element_blank(),
-        panel.background = element_rect(
-            fill = "white", colour = "white"
-        ),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.line.x = element_line(
-            color = "black", size = 0.5
-        ),
-        axis.text.x = element_text(size = 15),
-        axis.title.x = element_text(size = 15),
-        strip.text.y = element_text(angle = 0),
-        strip.background = element_blank(),
-        plot.title = element_text(
-            hjust = 0.5, face = "italic", size = 20
-        ),
-        plot.subtitle = element_text(
-            hjust = 0.5, size = 20
-        )
+bp_no_facet_labels_theme <- theme(
+    legend.position = "right",
+    strip.text.x = element_blank(),
+    panel.background = element_rect(
+        fill = "white", colour = "white"
+    ),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line.x = element_line(
+        color = "black", size = 0.5
+    ),
+    axis.text.x = element_text(size = 15),
+    axis.title.x = element_text(size = 15),
+    strip.text.y = element_text(angle = 0),
+    strip.background = element_blank(),
+    plot.title = element_text(
+        hjust = 0.5, face = "italic", size = 20
+    ),
+    plot.subtitle = element_text(
+        hjust = 0.5, size = 20
     )
+)
 
 # plot only buscos that have moved - paint by Merians
 paint_merians_differences_only <- function(
@@ -191,7 +193,9 @@ paint_merians_differences_only <- function(
             ncol = num_col
         ) + guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(
+            labels = (function(x) x) / 1e6, expand = c(0.005, 1)
+        ) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none")
@@ -254,7 +258,9 @@ paint_species_differences_only <- function(
             strip.position = "right"
         ) + guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(
+            labels = (function(x) x) / 1e6, expand = c(0.005, 1)
+        ) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -307,7 +313,9 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
             strip.position = "right"
         ) + guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(
+            labels = (function(x) x) / 1e6, expand = c(0.005, 1)
+        ) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none") +
@@ -366,7 +374,9 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
             strip.position = "right"
         ) + guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(
+            labels = (function(x) x) / 1e6, expand = c(0.005, 1)
+        ) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle =  sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -502,7 +512,7 @@ if (merians == "False") {
             p <- paint_merians_differences_only(
                 locations_filt, subset_merians, 3, prefix, num_contigs
             )
-            p <- p + busco_paint_no_facet_labels_theme
+            p <- p + bp_no_facet_labels_theme
         }
     }
 }

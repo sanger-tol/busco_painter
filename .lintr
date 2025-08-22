@@ -1,4 +1,5 @@
 linters: linters_with_defaults(
     indentation_linter = indentation_linter(indent = 4L),
-    object_usage_linter = NULL
+    object_usage_linter = NULL,
+    pipe_continuation_linter = NULL
   )
