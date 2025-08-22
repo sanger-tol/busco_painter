@@ -7,6 +7,8 @@ on:
 jobs:
   RLinting:
     runs-on: ubuntu-latest
+    env:
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -17,8 +19,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::lintr, local::.
-          needs: lint
+          extra-packages: r-lib/lintr, local::.
+          needs: Linting
 
       - name: Lint
         run: lintr::lint(filename="./src/plot_buscopainter.R")
