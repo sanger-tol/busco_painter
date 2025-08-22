@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [[0.1.0](https://github.com/sanger-tol/busco_painter/releases/tag/0.1.0)] -  - [2025-08-22]
 
 ### Added and Fixed
-- Added Python Linting with Ruff.
+- Added Python Linting CI with Ruff.
     - basic Ruff use with no config
-- Added R Linting with R.
+- Added R Linting CI with R.
     - plot_buscopainter.R
         - busco_paint* functions have been replaced with bp*
         - Line width = 80
