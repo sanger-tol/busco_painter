@@ -49,6 +49,9 @@ jobs:
             - name: Print output files
               run: ls -lh *
 
-            - name: Display output
-              run: |
-                  icat *png
+            - name: Comment Webpage Screenshot
+              uses: opengisch/comment-pr-with-images@upload_only
+              with:
+                  images: "buscopainter_complete_location.tsv_buscopainter.png"
+                  custom_attachment_msg: "Output of Actions is:"
+                  edit_previous_comment: true
