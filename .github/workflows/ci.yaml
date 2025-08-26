@@ -14,11 +14,6 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Install Kitty
-              # So we can see the output
-              run: |
-                  apt install libheif-dev
-
             - name: setup python
               uses: actions/setup-python@v5
               with:
