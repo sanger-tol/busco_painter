@@ -88,7 +88,8 @@ set_merian_colour_mapping <- function(location_set) {
     return(subset_merians)
 }
 
-busco_paint_theme <- theme(legend.position = "right",
+busco_paint_theme <- theme(
+    legend.position = "right",
     strip.text.x = element_text(
         margin = margin(0,0,0,0, "cm")
     ),
@@ -134,8 +135,8 @@ paint_merians_differences_only <- function(
         spp_df,
         select = c(query_chr, length)
     ) %>%
-    unique() %>%
-    arrange(length, decreasing=TRUE)
+        unique() %>%
+        arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
 
@@ -155,8 +156,8 @@ paint_merians_differences_only <- function(
         ) +
         geom_rect(
             aes(
-                xmin = position-2e4,
-                xmax = position+2e4,
+                xmin = position - 2e4,
+                xmax = position + 2e4,
                 ymax = 0,
                 ymin = 12,
                 fill = status_f
@@ -165,7 +166,7 @@ paint_merians_differences_only <- function(
         facet_wrap(query_chr_f ~., ncol = num_col) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005,1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none")
@@ -182,7 +183,7 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         select = c(query_chr, length)
     ) %>%
     unique() %>%
-    arrange(length, decreasing=TRUE)
+    arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
     chr_levels = chr_levels [! chr_levels %in% "self"]
@@ -196,7 +197,7 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
 
     # then put "self" back in to have it in first position as want "self"
     # to always be painted grey.
-    legend_levels <- c("self",legend_levels)
+    legend_levels <- c("self", legend_levels)
     num_colours <- length(legend_levels)
     col_palette <- hue_pal()(num_colours)
     col_palette[1] <- "grey"
@@ -209,10 +210,10 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         scale_colour_manual(
             values = col_palette,
             aesthetics = c("fill"),
-            breaks=legend_levels
+            breaks = legend_levels
         ) +
         geom_rect(
-            aes(xmin = start, xmax = length, ymax=0, ymin =12),
+            aes(xmin = start, xmax = length, ymax = 0, ymin = 12),
             colour = "black",
             fill = "white"
         ) +
@@ -230,7 +231,7 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005,1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -263,13 +264,15 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
         ) +
         geom_rect(
             aes(xmin = start, xmax = length, ymax = 0, ymin  = 12),
-            colour="black", fill="white"
+            colour = "black",
+            fill = "white"
         ) +
         geom_rect(
-            aes(xmin = position-2e4,
+            aes(
+                xmin = position-2e4,
                 xmax = position+2e4,
                 ymax = 0,
-                ymin =12,
+                ymin = 12,
                 fill = assigned_chr_f
             )
         ) +
