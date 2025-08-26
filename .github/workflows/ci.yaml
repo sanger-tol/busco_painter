@@ -44,7 +44,7 @@ jobs:
               # --file is the '*buscopainter_complete_location.tsv' file
               # --index is the genome's faidx file
               run: source("src/plot_buscopainter.R")
-              shell: Rscript {0} --file buscopainter_complete_location.tsv --prefix "github_plot" --index ""
+              shell: Rscript {0} --file buscopainter_complete_location.tsv --prefix "github_plot" --index test_data/lep_assembly.fa.fai
 
             - name: Print output files
               run: ls -lh *
