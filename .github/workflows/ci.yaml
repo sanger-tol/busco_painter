@@ -17,7 +17,7 @@ jobs:
             - name: Install Kitty
               # So we can see the output
               run: |
-                  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+                  apt install libheif-dev
 
             - name: setup python
               uses: actions/setup-python@v5
@@ -49,9 +49,6 @@ jobs:
             - name: Print output files
               run: ls -lh *
 
-            - name: Comment Webpage Screenshot
-              uses: opengisch/comment-pr-with-images@upload_only
-              with:
-                  images: "buscopainter_complete_location.tsv_buscopainter.png"
-                  custom_attachment_msg: "Output of Actions is:"
-                  edit_previous_comment: true
+            - name: Show output
+              run: |
+                  icat busco*png
