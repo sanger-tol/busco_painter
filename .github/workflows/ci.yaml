@@ -44,6 +44,10 @@ jobs:
             - name: Print output files
               run: ls -lh *
 
-            - name: Show output
-              run: |
-                  icat busco*png
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: busco_painter_output
+                  path: buscopainter_*
+                  if-no-files-found: error
+                  retention-days: 5
+                  overwrite: true
