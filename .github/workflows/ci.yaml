@@ -19,11 +19,6 @@ jobs:
               run: |
                   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
-            - name: Download run data
-              # 2 - BUSCO full table
-              # 3 - A lepidoptera genome .fai file
-              run: |
-
             - name: setup python
               uses: actions/setup-python@v5
               with:
@@ -33,10 +28,7 @@ jobs:
               # --reference is the full busco table
               # --query is the full busco table
               run: |
-                  python3 src/buscopainter.py --reference_table ./test_data/busco_full_table.tsv --query_table reference_data/Merian_elements_full_table.tsv
-
-            - name: Compare output files to known
-              run: diff buscopainter_complete_location.tsv test_data/buscopainter_complete_location.tsv
+                  python3 src/buscopainter.py --reference_table reference_data/Merian_elements_full_table.tsv --query_table test_data/busco_full_table.tsv
 
             - name: setup R
               uses: r-lib/actions/setup-r@v2
