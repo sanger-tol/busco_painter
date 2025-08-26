@@ -48,3 +48,7 @@ jobs:
 
             - name: Print output files
               run: ls -lh *
+
+            - name: Display output
+              run: |
+                  icat *png
