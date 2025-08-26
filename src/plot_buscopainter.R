@@ -105,7 +105,7 @@ busco_paint_theme <- theme(
     plot.subtitle = element_text(hjust = 0.5, size = 20)
 )
 
-busco_paint_no_facet_labels_theme <- theme(
+bp_no_facet_labels_theme <- theme(
     legend.position = "right",
     strip.text.x = element_blank(),
     panel.background = element_rect(fill = "white", colour = "white"),
@@ -166,12 +166,12 @@ paint_merians_differences_only <- function(
         facet_wrap(query_chr_f ~ ., ncol = num_col) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(labels = function(x) x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none")
 
-        # busco_paint_theme
+    # busco_paint_theme
     return(the_plot)
 }
 
@@ -231,7 +231,7 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(labels = function(x) x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -277,11 +277,11 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
             )
         ) +
         facet_wrap(
-            query_chr_f ~., ncol = num_col, strip.position = "right"
+            query_chr_f ~ ., ncol = num_col, strip.position = "right"
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005, 1)) +
+        scale_x_continuous(labels = function(x) x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none") +
@@ -324,8 +324,8 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
         ) +
         geom_rect(
             aes(
-                xmin = position-2e4,
-                xmax = position+2e4,
+                xmin = position - 2e4,
+                xmax = position + 2e4,
                 ymax = 0,
                 ymin = 12,
                 fill = assigned_chr_f
@@ -338,7 +338,7 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x) x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -427,8 +427,8 @@ total_contigs <- length(unique(location_set$query_chr))
 # number of query_chr after filtering
 num_contigs <- as.character(length(unique(locations_filt$query_chr)))
 num_removed_contigs <- length(
-        unique(location_set$query_chr)
-    ) -
+    unique(location_set$query_chr)
+) -
     length(
         unique(locations_filt$query_chr)
     )
@@ -492,7 +492,7 @@ if (merians == "False") {
             p <- paint_merians_differences_only(
                 locations_filt, subset_merians, 3, prefix, num_contigs
             )
-            p <- p + busco_paint_no_facet_labels_theme
+            p <- p + bp_no_facet_labels_theme
         }
     }
 }
