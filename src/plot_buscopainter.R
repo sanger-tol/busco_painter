@@ -27,10 +27,10 @@ prepare_data <- function(args1) {
     locations <- read_tsv(args1, col_types = cols())
 
     # format location data
-    locations <- locations %>% filter(!grepl(':', query_chr))
+    locations <- locations %>% filter(!grepl(":", query_chr))
 
     # format location data
-    locations <- locations %>% filter(!grepl(':', assigned_chr))
+    locations <- locations %>% filter(!grepl(":", assigned_chr))
     locations <- locations %>%
         group_by(query_chr) %>%
         mutate(length = max(position)) %>%
@@ -43,15 +43,15 @@ prepare_data <- function(args1) {
 prepare_data_with_index <- function(args1, args2) {
     locations <- read_tsv(args1, col_types = cols())
     contig_lengths <- read_tsv(args2, col_names = FALSE, col_types = cols())
-    colnames(contig_lengths) <- c('Seq', 'length', 'offset',
-        'linebases', 'linewidth'
+    colnames(contig_lengths) <- c("Seq", "length", "offset",
+        "linebases", "linewidth"
     )
 
     # format location data
-    locations <- locations %>% filter(!grepl(':', query_chr))
+    locations <- locations %>% filter(!grepl(":", query_chr))
 
     # format location data
-    locations <- locations %>% filter(!grepl(':', assigned_chr))
+    locations <- locations %>% filter(!grepl(":", assigned_chr))
     locations <- merge(
         locations, contig_lengths, by.x = "query_chr", by.y = "Seq"
     )
@@ -77,19 +77,21 @@ filter_buscos <- function(locations, minimum) {
 # Set mapping of Merian element to colour when only plot
 set_merian_colour_mapping <- function(location_set) {
     merian_order = c(
-        'MZ', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10',
-        'M11', 'M12', 'M13', 'M14', 'M15', 'M16', 'M17', 'M18', 'M19', 'M20',
-        'M21', 'M22', 'M23', 'M24', 'M25', 'M26', 'M27', 'M28', 'M29', 'M30',
-        'M31', 'self'
+        "MZ", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10",
+        "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19", "M20",
+        "M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "M30",
+        "M31", "self"
     )
-    colour_palette <- append(hue_pal()(32), 'grey')
+    colour_palette <- append(hue_pal()(32), "grey")
     status_merians <- unique(location_set$status)
     subset_merians <- subset(colour_palette, merian_order %in% status_merians)
     return(subset_merians)
 }
 
-busco_paint_theme <- theme(legend.position="right",
-    strip.text.x = element_text(margin = margin(0,0,0,0, "cm")),
+busco_paint_theme <- theme(legend.position = "right",
+    strip.text.x = element_text(
+        margin = margin(0,0,0,0, "cm")
+    ),
     panel.background = element_rect(fill = "white", colour = "white"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
@@ -102,7 +104,8 @@ busco_paint_theme <- theme(legend.position="right",
     plot.subtitle = element_text(hjust = 0.5, size = 20)
 )
 
-busco_paint_no_facet_labels_theme <- theme(legend.position="right",
+busco_paint_no_facet_labels_theme <- theme(
+    legend.position = "right",
     strip.text.x = element_blank(),
     panel.background = element_rect(fill = "white", colour = "white"),
     panel.grid.major = element_blank(),
@@ -121,10 +124,10 @@ paint_merians_differences_only <- function(
     spp_df, subset_merians, num_col, title, karyotype
 ) {
     merian_order <- c(
-        'MZ', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10',
-        'M11', 'M12', 'M13', 'M14', 'M15', 'M16', 'M17', 'M18', 'M19', 'M20',
-        'M21', 'M22', 'M23', 'M24', 'M25', 'M26', 'M27', 'M28', 'M29', 'M30',
-        'M31', 'self'
+        "MZ", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10",
+        "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19", "M20",
+        "M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "M30",
+        "M31", "self"
     )
     spp_df$status_f = factor(spp_df$status, levels = merian_order)
     chr_levels <- subset(
@@ -159,13 +162,15 @@ paint_merians_differences_only <- function(
                 fill = status_f
             )
         ) +
-        facet_wrap(query_chr_f ~., ncol = num_col) + guides(scale = "none") +
+        facet_wrap(query_chr_f ~., ncol = num_col) +
+        guides(scale = "none") +
         xlab("Position (Mb)") +
         scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005,1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none")
-    # busco_paint_theme
+
+        # busco_paint_theme
     return(the_plot)
 }
 
@@ -186,15 +191,15 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
     spp_df$query_chr_f = factor(spp_df$query_chr, levels = chr_levels)
     legend_levels <- unique(spp_df$status)
 
-    # remove 'self' from list
-    legend_levels <- legend_levels[legend_levels != 'self']
+    # remove "self" from list
+    legend_levels <- legend_levels[legend_levels != "self"]
 
-    # then put 'self' back in to have it in first position as want 'self'
+    # then put "self" back in to have it in first position as want "self"
     # to always be painted grey.
-    legend_levels <- c('self',legend_levels)
+    legend_levels <- c("self",legend_levels)
     num_colours <- length(legend_levels)
     col_palette <- hue_pal()(num_colours)
-    col_palette[1] <- 'grey'
+    col_palette[1] <- "grey"
 
     # set chr order as order for plotting
     spp_df$status_f = factor(spp_df$status, levels = legend_levels)
@@ -234,12 +239,12 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
 }
 
 paint_merians_all <- function(spp_df, num_col, title, karyotype) {
-    colour_palette <- append(hue_pal()(32), 'grey')
+    colour_palette <- append(hue_pal()(32), "grey")
     merian_order <- c(
-        'MZ', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10',
-        'M11', 'M12', 'M13', 'M14', 'M15', 'M16', 'M17', 'M18', 'M19', 'M20',
-        'M21', 'M22', 'M23', 'M24', 'M25', 'M26', 'M27', 'M28', 'M29', 'M30',
-        'M31', 'self'
+        "MZ", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10",
+        "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19", "M20",
+        "M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "M30",
+        "M31", "self"
     )
     spp_df$assigned_chr_f = factor(spp_df$assigned_chr, levels = merian_order)
     chr_levels <- subset(
@@ -427,21 +432,21 @@ length(
 
 print(
     paste(
-        'Number of contigs before filtering by number of BUSCOs:',
+        "Number of contigs before filtering by number of BUSCOs:",
         total_contigs
     )
 )
 
 print(
     paste(
-        'Number of contigs removed by filtering :',
+        "Number of contigs removed by filtering :",
         num_removed_contigs
     )
 )
 
 print(
     paste(
-        'Number of contigs post-filtering:',
+        "Number of contigs post-filtering:",
         num_contigs
     )
 )
