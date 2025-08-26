@@ -91,7 +91,7 @@ set_merian_colour_mapping <- function(location_set) {
 busco_paint_theme <- theme(
     legend.position = "right",
     strip.text.x = element_text(
-        margin = margin(0,0,0,0, "cm")
+        margin = margin(0, 0, 0, 0, "cm")
     ),
     panel.background = element_rect(fill = "white", colour = "white"),
     panel.grid.major = element_blank(),
@@ -152,7 +152,7 @@ paint_merians_differences_only <- function(
         geom_rect(
             aes(xmin = start, xmax = length, ymax = 0, ymin  = 12),
             colour = "black",
-            fill="white"
+            fill = "white"
         ) +
         geom_rect(
             aes(
@@ -163,10 +163,10 @@ paint_merians_differences_only <- function(
                 fill = status_f
             )
         ) +
-        facet_wrap(query_chr_f ~., ncol = num_col) +
+        facet_wrap(query_chr_f ~ ., ncol = num_col) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none")
@@ -182,8 +182,8 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         spp_df,
         select = c(query_chr, length)
     ) %>%
-    unique() %>%
-    arrange(length, decreasing = TRUE)
+        unique() %>%
+        arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
     chr_levels = chr_levels [! chr_levels %in% "self"]
@@ -219,19 +219,19 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         ) +
         geom_rect(
             aes(
-                xmin = position-2e4,
-                xmax = position+2e4,
+                xmin = position - 2e4,
+                xmax = position + 2e4,
                 ymax = 0,
                 ymin = 12,
                 fill = status_f
             )
         ) +
         facet_wrap(
-            query_chr_f ~., ncol = num_col, strip.position = "right"
+            query_chr_f ~ ., ncol = num_col, strip.position = "right"
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -250,7 +250,7 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
     spp_df$assigned_chr_f = factor(spp_df$assigned_chr, levels = merian_order)
     chr_levels <- subset(
         spp_df, select = c(query_chr, length)
-    ) %>% unique() %>% arrange(length, decreasing=TRUE)
+    ) %>% unique() %>% arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
 
@@ -269,8 +269,8 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
         ) +
         geom_rect(
             aes(
-                xmin = position-2e4,
-                xmax = position+2e4,
+                xmin = position - 2e4,
+                xmax = position + 2e4,
                 ymax = 0,
                 ymin = 12,
                 fill = assigned_chr_f
@@ -281,7 +281,7 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005, 1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none") +
@@ -294,8 +294,8 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
     chr_levels <- subset(
         spp_df, select = c(query_chr, length)
     ) %>%
-    unique() %>%
-    arrange(length, decreasing = TRUE)
+        unique() %>%
+        arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
     chr_levels = chr_levels [! chr_levels %in% "self"]
@@ -308,37 +308,37 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
     col_palette <- hue_pal()(num_colours)
 
     # set chr order as order for plotting
-    spp_df$assigned_chr_f = factor(spp_df$assigned_chr, levels=legend_levels)
+    spp_df$assigned_chr_f = factor(spp_df$assigned_chr, levels = legend_levels)
 
     sub_title <- paste("n contigs =", karyotype)
     the_plot <- ggplot(data = spp_df) +
         scale_colour_manual(
             values = col_palette,
             aesthetics = c("fill"),
-            breaks=legend_levels
+            breaks = legend_levels
         ) +
         geom_rect(
             aes(xmin = start, xmax = length, ymax = 0, ymin = 12),
-            colour="black",
-            fill="white"
+            colour = "black",
+            fill = "white"
         ) +
         geom_rect(
             aes(
                 xmin = position-2e4,
-                xmax=position+2e4,
-                ymax=0,
-                ymin =12,
-                fill=assigned_chr_f
+                xmax = position+2e4,
+                ymax = 0,
+                ymin = 12,
+                fill = assigned_chr_f
             )
         ) +
         facet_wrap(
-            query_chr_f ~.,
+            query_chr_f ~ .,
             ncol = num_col,
             strip.position = "right"
         ) +
         guides(scale = "none") +
         xlab("Position (Mb)") +
-        scale_x_continuous(labels = function(x)x/1e6, expand = c(0.005,1)) +
+        scale_x_continuous(labels = function(x)x / 1e6, expand = c(0.005,1)) +
         scale_y_continuous(breaks = NULL) +
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
@@ -427,11 +427,11 @@ total_contigs <- length(unique(location_set$query_chr))
 # number of query_chr after filtering
 num_contigs <- as.character(length(unique(locations_filt$query_chr)))
 num_removed_contigs <- length(
-    unique(location_set$query_chr)
-) -
-length(
-    unique(locations_filt$query_chr)
-)
+        unique(location_set$query_chr)
+    ) -
+    length(
+        unique(locations_filt$query_chr)
+    )
 
 print(
     paste(
@@ -457,9 +457,9 @@ print(
 # if Merian elements are being used as the comparator
 if (merians != "False") {
     subset_merians <- set_merian_colour_mapping(locations_filt)
-    }
+}
 
-# generate the plot - four possible options based on given arguments to script
+# generate the plot - four possible options based on given arguments to script
 # plot only buscos that have moved - paint by Merians
 
 # if comparing two species
