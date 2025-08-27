@@ -20,7 +20,7 @@ jobs:
                   python-version: 3.12
 
             - name: Run Python Script
-              # --reference is the full busco table
+              # --reference is the full Merian table
               # --query is the full busco table
               run: |
                   python3 src/buscopainter.py --reference_table reference_data/Merian_elements_full_table.tsv --query_table test_data/busco_full_table.tsv
