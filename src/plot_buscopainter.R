@@ -37,7 +37,7 @@ prepare_data <- function(args1) {
         ungroup()
     locations$start <- 0
 
-    return(locations)
+    locations
 }
 
 prepare_data_with_index <- function(args1, args2) {
@@ -57,7 +57,7 @@ prepare_data_with_index <- function(args1, args2) {
     )
     locations$start <- 0
 
-    return(locations)
+    locations
 }
 
 # minimum of buscos to be present
@@ -71,7 +71,8 @@ filter_buscos <- function(locations, minimum) {
         mutate(n_busco = n()) %>%
         ungroup() %>%
         filter(n_busco >= minimum)
-    return(locations_filt)
+
+    locations_filt
 }
 
 # Set mapping of Merian element to colour when only plot
@@ -85,7 +86,8 @@ set_merian_colour_mapping <- function(location_set) {
     colour_palette <- append(hue_pal()(32), "grey")
     status_merians <- unique(location_set$status)
     subset_merians <- subset(colour_palette, merian_order %in% status_merians)
-    return(subset_merians)
+
+    subset_merians
 }
 
 busco_paint_theme <- theme(
@@ -172,7 +174,7 @@ paint_merians_differences_only <- function(
         guides(fill = guide_legend("Merian element"), color = "none")
 
     # busco_paint_theme
-    return(the_plot)
+    the_plot
 }
 
 
@@ -236,7 +238,8 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
         busco_paint_theme
-    return(the_plot)
+
+    the_plot
 }
 
 paint_merians_all <- function(spp_df, num_col, title, karyotype) {
@@ -286,7 +289,8 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Merian element"), color = "none") +
         busco_paint_theme
-    return(the_plot)
+
+    the_plot
 }
 
 # paint all buscos by species
@@ -343,7 +347,8 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
         ggtitle(label = title, subtitle = sub_title)  +
         guides(fill = guide_legend("Query chromosome"), color = "none") +
         busco_paint_theme
-    return(the_plot)
+
+    the_plot
 }
 
 ### get args
