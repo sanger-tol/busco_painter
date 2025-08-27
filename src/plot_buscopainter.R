@@ -76,7 +76,7 @@ filter_buscos <- function(locations, minimum) {
 
 # Set mapping of Merian element to colour when only plot
 set_merian_colour_mapping <- function(location_set) {
-    merian_order = c(
+    merian_order <- c(
         "MZ", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10",
         "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19", "M20",
         "M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "M30",
@@ -130,7 +130,7 @@ paint_merians_differences_only <- function(
         "M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "M30",
         "M31", "self"
     )
-    spp_df$status_f = factor(spp_df$status, levels = merian_order)
+    spp_df$status_f <- factor(spp_df$status, levels = merian_order)
     chr_levels <- subset(
         spp_df,
         select = c(query_chr, length)
@@ -141,7 +141,7 @@ paint_merians_differences_only <- function(
     chr_levels <- chr_levels$query_chr
 
     # set chr order as order for plotting
-    spp_df$query_chr_f = factor(spp_df$query_chr, levels = chr_levels)
+    spp_df$query_chr_f <- factor(spp_df$query_chr, levels = chr_levels)
     sub_title <- paste("n contigs =", karyotype)
 
     the_plot <- ggplot(data = spp_df) +
@@ -186,10 +186,10 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
         arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
-    chr_levels = chr_levels [! chr_levels %in% "self"]
+    chr_levels <- chr_levels [! chr_levels %in% "self"]
 
     # set chr order as order for plotting query chr
-    spp_df$query_chr_f = factor(spp_df$query_chr, levels = chr_levels)
+    spp_df$query_chr_f <- factor(spp_df$query_chr, levels = chr_levels)
     legend_levels <- unique(spp_df$status)
 
     # remove "self" from list
@@ -203,7 +203,7 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
     col_palette[1] <- "grey"
 
     # set chr order as order for plotting
-    spp_df$status_f = factor(spp_df$status, levels = legend_levels)
+    spp_df$status_f <- factor(spp_df$status, levels = legend_levels)
 
     sub_title <- paste("n contigs =", karyotype)
     the_plot <- ggplot(data = spp_df) +
@@ -247,7 +247,7 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
         "M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "M30",
         "M31", "self"
     )
-    spp_df$assigned_chr_f = factor(spp_df$assigned_chr, levels = merian_order)
+    spp_df$assigned_chr_f <- factor(spp_df$assigned_chr, levels = merian_order)
     chr_levels <- subset(
         spp_df, select = c(query_chr, length)
     ) %>% unique() %>% arrange(length, decreasing = TRUE)
@@ -255,7 +255,7 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
     chr_levels <- chr_levels$query_chr
 
     # set chr order as order for plotting
-    spp_df$query_chr_f = factor(spp_df$query_chr, levels = chr_levels)
+    spp_df$query_chr_f <- factor(spp_df$query_chr, levels = chr_levels)
     sub_title <- paste("n contigs =", karyotype)
     the_plot <- ggplot(data = spp_df) +
         scale_colour_manual(
@@ -298,17 +298,17 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
         arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
-    chr_levels = chr_levels [! chr_levels %in% "self"]
+    chr_levels <- chr_levels [! chr_levels %in% "self"]
 
     # set chr order as order for plotting
-    spp_df$query_chr_f = factor(spp_df$query_chr, levels = chr_levels)
+    spp_df$query_chr_f <- factor(spp_df$query_chr, levels = chr_levels)
     legend_levels <- subset(spp_df, select = c(assigned_chr)) %>% unique()
     legend_levels <- legend_levels$assigned_chr
     num_colours <- length(legend_levels)
     col_palette <- hue_pal()(num_colours)
 
     # set chr order as order for plotting
-    spp_df$assigned_chr_f = factor(spp_df$assigned_chr, levels = legend_levels)
+    spp_df$assigned_chr_f <- factor(spp_df$assigned_chr, levels = legend_levels)
 
     sub_title <- paste("n contigs =", karyotype)
     the_plot <- ggplot(data = spp_df) +
@@ -347,7 +347,7 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
 }
 
 ### get args
-option_list = list(
+option_list <- list(
     make_option(
         c("-f", "--file"),
         type = "character",
@@ -399,8 +399,8 @@ option_list = list(
     )
 )
 
-opt_parser = OptionParser(option_list = option_list)
-opt = parse_args(opt_parser)
+opt_parser <- OptionParser(option_list = option_list)
+opt <- parse_args(opt_parser)
 
 locations <- opt$file
 prefix <- opt$prefix
