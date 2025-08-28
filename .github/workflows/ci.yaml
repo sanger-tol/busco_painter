@@ -1,0 +1,53 @@
+name: Run script tests
+on:
+    push:
+    pull_request:
+    release:
+
+jobs:
+    tests_scripts:
+        name: Test Scripts Functionally
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository to the runner
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: setup python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: 3.12
+
+            - name: Run Python Script
+              # --reference is the full Merian table
+              # --query is the full busco table
+              run: |
+                  python3 src/buscopainter.py --reference_table reference_data/Merian_elements_full_table.tsv --query_table test_data/busco_full_table.tsv
+
+            - name: setup R
+              uses: r-lib/actions/setup-r@v2
+              with:
+                  use-public-rspm: true
+
+            - name: Install R dependencies
+              uses: r-lib/actions/setup-r-dependencies@v2
+              with:
+                  extra-packages:: any::tidyverse, any::scales, any::optparse
+
+            - name: Run R Script
+              # --file is the '*buscopainter_complete_location.tsv' file
+              # --index is the genome's faidx file
+              run: source("src/plot_buscopainter.R")
+              shell: Rscript {0} --file buscopainter_complete_location.tsv --prefix "github_plot" --index test_data/lep_assembly.fa.fai
+
+            - name: Print output files
+              run: ls -lh *
+
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: busco_painter_output
+                  path: buscopainter_*
+                  if-no-files-found: error
+                  retention-days: 5
+                  overwrite: true
