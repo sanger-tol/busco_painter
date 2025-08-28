@@ -7,6 +7,7 @@ Additions are:
 - Moved scripts to the `src` folder
 - Script formats updated and versions added.
 - Added Python linting with Ruff as GitHub Action
+- Added R linting with LintR
 
 ### Installation
 
