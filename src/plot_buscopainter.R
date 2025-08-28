@@ -27,13 +27,13 @@ prepare_data <- function(args1) {
     locations <- read_tsv(args1, col_types = cols())
 
     # format location data
-    locations <- locations %>% filter(!grepl(":", query_chr))
+    locations <- locations |> filter(!grepl(":", query_chr))
 
     # format location data
-    locations <- locations %>% filter(!grepl(":", assigned_chr))
-    locations <- locations %>%
-        group_by(query_chr) %>%
-        mutate(length = max(position)) %>%
+    locations <- locations |> filter(!grepl(":", assigned_chr))
+    locations <- locations |>
+        group_by(query_chr) |>
+        mutate(length = max(position)) |>
         ungroup()
     locations$start <- 0
 
@@ -48,10 +48,10 @@ prepare_data_with_index <- function(args1, args2) {
     )
 
     # format location data
-    locations <- locations %>% filter(!grepl(":", query_chr))
+    locations <- locations |> filter(!grepl(":", query_chr))
 
     # format location data
-    locations <- locations %>% filter(!grepl(":", assigned_chr))
+    locations <- locations |> filter(!grepl(":", assigned_chr))
     locations <- merge(
         locations, contig_lengths, by.x = "query_chr", by.y = "Seq"
     )
@@ -62,14 +62,14 @@ prepare_data_with_index <- function(args1, args2) {
 
 # minimum of buscos to be present
 filter_buscos <- function(locations, minimum) {
-    locations_filt <- locations  %>%
+    locations_filt <- locations  |>
 
         # filter df to only keep query_chr with >=3 buscos to remove shrapnel
-        group_by(query_chr) %>%
+        group_by(query_chr) |>
 
         # make a new column reporting number buscos per query_chr
-        mutate(n_busco = n()) %>%
-        ungroup() %>%
+        mutate(n_busco = n()) |>
+        ungroup() |>
         filter(n_busco >= minimum)
 
     locations_filt
@@ -136,8 +136,8 @@ paint_merians_differences_only <- function(
     chr_levels <- subset(
         spp_df,
         select = c(query_chr, length)
-    ) %>%
-        unique() %>%
+    ) |>
+        unique() |>
         arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
@@ -183,8 +183,8 @@ paint_species_differences_only <- function(spp_df, num_col, title, karyotype) {
     chr_levels <- subset(
         spp_df,
         select = c(query_chr, length)
-    ) %>%
-        unique() %>%
+    ) |>
+        unique() |>
         arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
@@ -253,7 +253,9 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
     spp_df$assigned_chr_f <- factor(spp_df$assigned_chr, levels = merian_order)
     chr_levels <- subset(
         spp_df, select = c(query_chr, length)
-    ) %>% unique() %>% arrange(length, decreasing = TRUE)
+    ) |>
+        unique() |>
+        arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
 
@@ -297,8 +299,8 @@ paint_merians_all <- function(spp_df, num_col, title, karyotype) {
 paint_species_all <- function(spp_df, num_col, title, karyotype) {
     chr_levels <- subset(
         spp_df, select = c(query_chr, length)
-    ) %>%
-        unique() %>%
+    ) |>
+        unique() |>
         arrange(length, decreasing = TRUE)
 
     chr_levels <- chr_levels$query_chr
@@ -306,7 +308,7 @@ paint_species_all <- function(spp_df, num_col, title, karyotype) {
 
     # set chr order as order for plotting
     spp_df$query_chr_f <- factor(spp_df$query_chr, levels = chr_levels)
-    legend_levels <- subset(spp_df, select = c(assigned_chr)) %>% unique()
+    legend_levels <- subset(spp_df, select = c(assigned_chr)) |> unique()
     legend_levels <- legend_levels$assigned_chr
     num_colours <- length(legend_levels)
     col_palette <- hue_pal()(num_colours)
