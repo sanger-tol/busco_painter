@@ -17,4 +17,4 @@ WORKDIR /tmp
 
 ENV CONDA_DIR=/opt/conda
 
-ENV PATH=/opt/conda/bin/python:/bin:${PATH}
+ENV PATH=/opt/conda/bin:/bin:${PATH}
