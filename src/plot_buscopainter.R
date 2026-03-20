@@ -398,15 +398,25 @@ option_list <- list(
         default = 3,
         help = "minimum number of buscos ",
         metavar = "number"
+    ),
+    make_option(
+        c("-v", "--version"),
+        action = "store_true",
+        default = FALSE,
+        help = "show version and exit"
     )
 )
 
 opt_parser <- OptionParser(
     usage = "%prog [options] input",
-    option_list = option_list,
-    version = paste("v", VERSION)
+    option_list = option_list
 )
 opt <- parse_args(opt_parser)
+
+if (isTRUE(opt$version)) {
+    cat(paste(VERSION, "\n"))
+    quit(status = 0)
+}
 
 locations <- opt$file
 prefix <- opt$prefix
