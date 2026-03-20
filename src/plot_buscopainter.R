@@ -20,7 +20,7 @@ library(optparse)
 suppressMessages(library(tidyverse))
 suppressMessages(library(scales))
 
-VERSION = "1.0.0"
+VERSION <- "1.0.0"
 
 
 ### Funcions for making busco paints in R ####
@@ -398,13 +398,6 @@ option_list <- list(
         default = 3,
         help = "minimum number of buscos ",
         metavar = "number"
-    ),
-    make_option(
-        c("-v", "--verbose"),
-        action = "store_true"
-        default = FALSE,
-        help = "Script version information",
-        metavar = "Script information"
     )
 )
 
