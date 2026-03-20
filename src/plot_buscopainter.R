@@ -20,7 +20,7 @@ library(optparse)
 suppressMessages(library(tidyverse))
 suppressMessages(library(scales))
 
-version <- "1.0.0"
+version <- "1.0.1"
 
 
 ### Funcions for making busco paints in R ####
