@@ -20,7 +20,7 @@ library(optparse)
 suppressMessages(library(tidyverse))
 suppressMessages(library(scales))
 
-VERSION <- "1.0.0"
+version <- "1.0.0"
 
 
 ### Funcions for making busco paints in R ####
@@ -414,7 +414,7 @@ opt_parser <- OptionParser(
 opt <- parse_args(opt_parser)
 
 if (isTRUE(opt$version)) {
-    cat(paste(VERSION, "\n"))
+    cat(paste(version, "\n"))
     quit(status = 0)
 }
 
