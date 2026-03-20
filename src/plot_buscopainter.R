@@ -20,6 +20,8 @@ library(optparse)
 suppressMessages(library(tidyverse))
 suppressMessages(library(scales))
 
+VERSION = "1.0.0"
+
 
 ### Funcions for making busco paints in R ####
 
@@ -398,15 +400,19 @@ option_list <- list(
         metavar = "number"
     ),
     make_option(
-        c("-v", "--version"),
-        type = "character",
-        default = "1.0.0",
+        c("-v", "--verbose"),
+        action = "store_true"
+        default = FALSE,
         help = "Script version information",
-        metavar = "character"
+        metavar = "Script information"
     )
 )
 
-opt_parser <- OptionParser(option_list = option_list)
+opt_parser <- OptionParser(
+    usage = "%prog [options] input",
+    option_list = option_list,
+    version = paste("v", VERSION)
+)
 opt <- parse_args(opt_parser)
 
 locations <- opt$file
